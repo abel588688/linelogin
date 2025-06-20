@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>綁定中...</title>
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+</head>
+<body>
+  <h2>請稍候，我們正在為你綁定帳號...</h2>
+  <script>
+    liff.init({ liffId: "2007606927-JwR3gnr3" })
+      .then(() => {
+        if (!liff.isLoggedIn()) {
+          liff.login();
+        } else {
+          liff.getProfile().then(profile => {
+            const name = profile.displayName;
+            const userId = profile.userId;
+            const sheetUrl = 'https://script.google.com/macros/s/AKfycbyiwllZvRWn6rhWt_vcf2laF6gOU645MYUzPQNz4vZ5UJyy6PmLLahvQm7nMMXhwReNuQ/exec';
+
+            fetch(`${sheetUrl}?name=${encodeURIComponent(name)}&userId=${userId}`)
+              .then(res => res.text())
+              .then(msg => {
+                document.body.innerHTML = `<h2>${msg}</h2><p>你可以關閉此視窗，繼續使用服務。</p>`;
+              })
+              .catch(err => {
+                document.body.innerHTML = `<h2>⚠️ 綁定失敗</h2><p>${err}</p>`;
+              });
+          }).catch(() => {
+            document.body.innerHTML = `<h2>⚠️ 無法取得使用者資訊</h2>`;
+          });
+        }
+      })
+      .catch(err => {
+        document.body.innerHTML = `<h2>⚠️ LIFF 初始化失敗：${err}</h2>`;
+      });
+  </script>
+</body>
+</html>
