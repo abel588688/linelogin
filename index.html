@@ -16,7 +16,7 @@
           liff.getProfile().then(profile => {
             const name = profile.displayName;
             const userId = profile.userId;
-            const sheetUrl = 'https://script.google.com/macros/s/AKfycbyiwllZvRWn6rhWt_vcf2laF6gOU645MYUzPQNz4vZ5UJyy6PmLLahvQm7nMMXhwReNuQ/exec';
+            const sheetUrl = 'https://script.google.com/macros/s/AKfycbxk2I7dwK7zDNjohcU0_Jf6JeAxr_NPMRc1e5YTE_Dh98CbZtMqwDUZY4ocgGe4tCsYxg/exec';
 
             fetch(`${sheetUrl}?name=${encodeURIComponent(name)}&userId=${userId}`)
               .then(res => res.text())
